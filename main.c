@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+int comparisonCount=0;
 int index=1;
 void insert(int value,int * heapArray){
-    int pointerIndex = index-1;
-    int key = value;
-    if(pointerIndex==0){
+    int pointerIndex = index-1;//I have taken a pointer
+    int key = value;//to debug
+    if(pointerIndex==0){// root is empty
         heapArray[0]=value;
-    }else if(value>=heapArray[(int)(pointerIndex)/2]){//(1st -1 because we are using indexes +1 2nd - 1 because i want previous position check
+    }else if(value>=heapArray[(int)(pointerIndex)/2]){//if grater just add to the end of the array
         heapArray[pointerIndex]=value;
-
-    }else if(value<heapArray[(int)(pointerIndex)/2]){
+        comparisonCount++;
+    }else if(value<heapArray[(int)(pointerIndex)/2]){//if smaller swap till not smaller or root is reached
         while((value < heapArray[(int)(pointerIndex)/2])&&pointerIndex!=0 ){
                 heapArray[pointerIndex]=heapArray[(int)(pointerIndex)/2];
                 heapArray[(int)(pointerIndex)/2] = value;
                 pointerIndex =(int)(pointerIndex/2);
+                comparisonCount++;
              }
         pointerIndex = index-1;
     }
@@ -33,14 +34,15 @@ int * CreateBinaryHeap(int *heap, int n){
 
 int minheap[n];
 
-for(int i=0;i<n;i++){
+for(int i=0;i<n;i++){//makes the heap
     insert(heap[i], minheap);
 }
-printf("the min heap is :\n");
+printf("the min heap is :\n");//prints the heap
 for(int i=0;i<n;i++){
     printf("%d\n",minheap[i]);
 }
-
+printf("the minimum value in heap is : %d\n",minheap[0]);
+printf("the total number of comparisons are :%d\n", comparisonCount);
 
 return minheap;
 
