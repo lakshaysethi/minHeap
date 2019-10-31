@@ -1,3 +1,3 @@
 # minHeap
 
-this program make a min heap of n integers 
+this program makes a min heap of n integers from random integers
